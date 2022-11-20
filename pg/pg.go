@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/fwojciec/tablemaker"
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
 )
@@ -55,12 +54,4 @@ func (db *DB) BeginTx(ctx context.Context) (*Tx, error) {
 		db:  db,
 		now: db.Now().UTC().Truncate(time.Second),
 	}, nil
-}
-
-type tableService struct {
-	db *DB
-}
-
-func (s *tableService) List(ctx context.Context, names []string) ([]*tablemaker.Table, error) {
-	panic("not implemented") // TODO: Implement
 }

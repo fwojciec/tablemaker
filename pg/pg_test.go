@@ -41,12 +41,10 @@ func TestDB(t *testing.T) {
 	MustCloseDB(t, db)
 }
 
-func isolate(t *testing.T, tdb *pg.DB, testFn func(t *testing.T, db *pg.DB)) {
+func isolate(t *testing.T, tdb *pg.DB, testFn func(t *testing.T, db *pg.DB, schema string)) {
 	t.Helper()
-
 	ctx := context.Background()
 	schema := randomID()
-
 	createSchema(t, ctx, tdb, schema)
 	newDSN := tdb.DSN + " search_path=" + schema
 	sdb := pg.NewDB(newDSN)
@@ -57,7 +55,7 @@ func isolate(t *testing.T, tdb *pg.DB, testFn func(t *testing.T, db *pg.DB)) {
 		dropSchema(t, ctx, tdb, schema)
 		sdb.Close()
 	})
-	testFn(t, sdb)
+	testFn(t, sdb, schema)
 }
 
 func createSchema(tb testing.TB, ctx context.Context, tdb *pg.DB, schema string) {
@@ -85,7 +83,7 @@ func dropSchema(tb testing.TB, ctx context.Context, tdb *pg.DB, schema string) {
 }
 
 func randomID() string {
-	var abc = []byte("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+	var abc = []byte("abcdefghijklmnopqrstuvwxyz")
 	var buf bytes.Buffer
 	for i := 0; i < 10; i++ {
 		buf.WriteByte(abc[rand.Intn(len(abc))])
