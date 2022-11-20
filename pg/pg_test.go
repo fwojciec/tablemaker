@@ -41,28 +41,6 @@ func TestDB(t *testing.T) {
 	MustCloseDB(t, db)
 }
 
-func TestIsolate(t *testing.T) {
-	t.Parallel()
-
-	db := MustOpenDB(t)
-	t.Cleanup(func() {
-		MustCloseDB(t, db)
-	})
-
-	isolate(t, db, func(t *testing.T, db *pg.DB) {
-		t.Helper()
-		ctx := context.Background()
-		tx, err := db.BeginTx(ctx)
-		if err != nil {
-			t.Fatal(err)
-		}
-		var res int
-		tx.GetContext(ctx, &res, "select 1")
-		equals(t, res, 1)
-	})
-
-}
-
 func isolate(t *testing.T, tdb *pg.DB, testFn func(t *testing.T, db *pg.DB)) {
 	t.Helper()
 
