@@ -15,3 +15,7 @@ type Table struct {
 type TableService interface {
 	List(ctx context.Context, names []string) ([]*Table, error)
 }
+
+type FileWriter interface {
+	Write(path string, table *Table) error
+}
