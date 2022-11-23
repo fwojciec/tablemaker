@@ -12,6 +12,23 @@ import (
 	"github.com/fwojciec/tablemaker"
 )
 
+var testTables = []*tablemaker.Table{
+	{
+		Name: "test_table_1",
+		Columns: []*tablemaker.Column{
+			{Name: "col1", Type: "text"},
+			{Name: "col2", Type: "numeric"},
+		},
+	},
+	{
+		Name: "test_table_2",
+		Columns: []*tablemaker.Column{
+			{Name: "col1", Type: "bool"},
+			{Name: "col2", Type: "integer"},
+		},
+	},
+}
+
 func TestWriteTables(t *testing.T) {
 	t.Parallel()
 
@@ -21,24 +38,7 @@ func TestWriteTables(t *testing.T) {
 		os.RemoveAll(dir)
 	})
 
-	tables := []*tablemaker.Table{
-		{
-			Name: "test_table_1",
-			Columns: []tablemaker.Column{
-				{Name: "col1", Type: "text"},
-				{Name: "col2", Type: "numeric"},
-			},
-		},
-		{
-			Name: "test_table_2",
-			Columns: []tablemaker.Column{
-				{Name: "col1", Type: "bool"},
-				{Name: "col2", Type: "integer"},
-			},
-		},
-	}
-
-	err = tablemaker.WriteTables(tables, dir)
+	err = tablemaker.WriteTables(testTables, dir)
 	ok(t, err)
 
 	res1, err := os.ReadFile(path.Join(dir, "test_table_1.sql"))

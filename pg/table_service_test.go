@@ -32,7 +32,7 @@ func TestList(t *testing.T) {
 			exp := []*tablemaker.Table{
 				{
 					Name: "test_table",
-					Columns: []tablemaker.Column{
+					Columns: []*tablemaker.Column{
 						{Name: "numeric_column", Type: "numeric"},
 						{Name: "text_column", Type: "text"},
 						{Name: "boolean_column", Type: "bool"},
@@ -61,7 +61,7 @@ func TestList(t *testing.T) {
 			exp := []*tablemaker.Table{
 				{
 					Name: "test_view",
-					Columns: []tablemaker.Column{
+					Columns: []*tablemaker.Column{
 						{Name: "numeric_column", Type: "numeric"},
 						{Name: "text_column", Type: "text"},
 						{Name: "boolean_column", Type: "bool"},
@@ -87,7 +87,7 @@ func TestList(t *testing.T) {
 			exp := []*tablemaker.Table{
 				{
 					Name: "test_materialized_view",
-					Columns: []tablemaker.Column{
+					Columns: []*tablemaker.Column{
 						{Name: "numeric_column", Type: "numeric"},
 						{Name: "text_column", Type: "text"},
 						{Name: "boolean_column", Type: "bool"},
@@ -113,7 +113,7 @@ func TestList(t *testing.T) {
 			exp := []*tablemaker.Table{
 				{
 					Name: "test_table",
-					Columns: []tablemaker.Column{
+					Columns: []*tablemaker.Column{
 						{Name: "numeric_column", Type: "numeric"},
 						{Name: "text_column", Type: "text"},
 						{Name: "boolean_column", Type: "bool"},
@@ -121,7 +121,7 @@ func TestList(t *testing.T) {
 				},
 				{
 					Name: "test_view",
-					Columns: []tablemaker.Column{
+					Columns: []*tablemaker.Column{
 						{Name: "numeric_column", Type: "numeric"},
 						{Name: "text_column", Type: "text"},
 						{Name: "boolean_column", Type: "bool"},

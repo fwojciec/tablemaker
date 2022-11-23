@@ -53,12 +53,12 @@ func (s *TableService) List(ctx context.Context, names []string) ([]*tablemaker.
 	if err != nil {
 		return nil, err
 	}
-	tm := make(map[string][]tablemaker.Column)
+	tm := make(map[string][]*tablemaker.Column)
 	for _, col := range cols {
 		if _, ok := tm[col.TableName]; !ok {
-			tm[col.TableName] = make([]tablemaker.Column, 0)
+			tm[col.TableName] = make([]*tablemaker.Column, 0)
 		}
-		tm[col.TableName] = append(tm[col.TableName], tablemaker.Column{
+		tm[col.TableName] = append(tm[col.TableName], &tablemaker.Column{
 			Name: col.ColumnName,
 			Type: col.DataType,
 		})

@@ -1,6 +1,9 @@
 package tablemaker
 
-import "context"
+import (
+	"context"
+	"io"
+)
 
 type Column struct {
 	Name string
@@ -9,11 +12,15 @@ type Column struct {
 
 type Table struct {
 	Name    string
-	Columns []Column
+	Columns []*Column
 }
 
 type TableService interface {
 	List(ctx context.Context, names []string) ([]*Table, error)
+}
+
+type TablePrinter interface {
+	Print(w io.Writer, tables []*Table) error
 }
 
 type FileWriter interface {
